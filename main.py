@@ -2,8 +2,8 @@ import torch
 from torch import optim, nn
 
 from SongIambicsGeneration.dataset import load_sentences, load_vocab, get_dataloader
-from SongIambicsGeneration.generate import generate_poem_temperature, generate_poem_with_keywords, \
-    generate_poem_with_jieba_keywords, generate_poem_with_keywords_v3
+from SongIambicsGeneration.generate import generate_poetry_with_split_keywords, \
+    generate_poetry_v1, generate_poetry_v2
 from SongIambicsGeneration.models.attention import Attention
 from SongIambicsGeneration.models.decoder import Decoder
 from SongIambicsGeneration.models.encoder import Encoder
@@ -43,23 +43,13 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss(ignore_index=0) # ignore padding token
 
     #to_train(model, train_loader, optimizer, criterion, CLIP, device)
-    keywords = ["春风", "杨柳"]
+    keywords = ['江南', '烟雨']
     i = 10
     while i < 20:
         model.load_state_dict(torch.load(f'./SavedModels/seq2seq_{i+1}.pt', map_location=device))
         model.to(device)
         #poem = generate_poem_temperature(model, (word_2_idx, idx_2_word), device, temperature=0.8,max_length=32)
-        poem = generate_poem_with_keywords_v3(model, (word_2_idx, idx_2_word), device, keywords)
-        result = ""
-        for index, char in enumerate(poem):
-            if index == 7 * 4:
-                break
-            result += char
-            if (index + 1) % 7 == 0:  # **每 7 个字后加逗号或句号**
-                if (index + 1) // 7 in [1, 3]:
-                    result += "，"
-                elif (index + 1) // 7 in [2, 4]:
-                    result += "。"
-
-        print(f"NO.{i} Generated poem: {result}")
+        poem = generate_poetry_v2(model, (word_2_idx, idx_2_word), device, "".join(keywords),total_line=5)
+        #poem =  generate_poetry_with_split_keywords(model, (word_2_idx, idx_2_word), device, keywords,temperature=1.2)
+        print(f"NO.{i} Generated poem: {poem}")
         i += 1

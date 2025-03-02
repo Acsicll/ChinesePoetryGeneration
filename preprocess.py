@@ -1,5 +1,7 @@
 import os
 import json
+from collections import Counter
+
 import jieba
 import torch
 from tqdm import tqdm
@@ -52,10 +54,7 @@ def tokenize_with_jieba(text):
     return list(jieba.cut(text))
 
 def build_vocab(texts,min_freq=3):
-    word_freq = {}
-    for text in texts:
-        for word in text:
-            word_freq[word] = word_freq.get(word,0) + 1
+    word_freq = Counter(word for text in texts for word in text)
 
     vocab = SPECIAL_TKOKENS + [word for word, freq in word_freq.items() if freq >= min_freq]
     word2idx =  {word: idx for idx, word in enumerate(vocab)}
@@ -81,7 +80,7 @@ def preprocess_data():
     process_CCPC_data(CCPC_DATA_PATH, DATA_PATH)
     texts = load_data(DATA_PATH)
     texts = [clean_text(text) for text in texts]
-    tokenized_texts = [tokenize(text) for text in texts]
+    tokenized_texts = [tokenize(text) for text in texts if text != ""]
 
     with open(SENTENCES_PATH, "w", encoding="utf-8") as f:
         for text in tokenized_texts:

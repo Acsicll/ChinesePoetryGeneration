@@ -10,7 +10,6 @@ from torch.backends import cudnn
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from SongIambicsGeneration.dataset import get_dataloader, load_vocab, load_sentences
-from SongIambicsGeneration.generate import generate_poem_temperature
 from models.encoder import Encoder
 from models.decoder import Decoder
 from models.seq2seq import Seq2Seq
@@ -63,8 +62,8 @@ def to_train(model,train_loader,optimizer,criterion,clip,device):
 
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
     #for epoch in range(20):
-    epoch = 10
-    while epoch < 20:
+    epoch = 20
+    while epoch < 30:
         start_time = time.time()
         train_loss = train(model, train_loader, optimizer, criterion, clip, device)
         scheduler.step(train_loss)

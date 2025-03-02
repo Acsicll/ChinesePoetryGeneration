@@ -1,221 +1,261 @@
 import random
-
-import torch
-import torch.nn.functional as F
-
-from SongIambicsGeneration.utils import nucleus_sampling, beam_search, fix_poem_rhythm, beam_search_v3, beam_search_v2
-from my_config import SPECIAL_TKOKENS
-
-def generate_poem_temperature(model, tokenizer, device, temperature=1.0, max_length=32, start_text="<SOS>"):
-    """
-    通过 temperature 控制多样性
-    """
-    model.eval()
-    word2idx, idx2word = tokenizer
-    src = torch.tensor([word2idx.get(start_text, word2idx["<UNK>"])]).unsqueeze(0).to(device)
-    generated_poem = [start_text]
-
-    with torch.no_grad():
-        encoder_outputs, hidden, cell = model.encoder(src)
-
-    input_token = src.squeeze(0)
-
-    for _ in range(max_length):
-        with torch.no_grad():
-            output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
-            logits = output.squeeze(0) / temperature
-            probs = F.softmax(logits, dim=-1)
-            predicted_token = torch.multinomial(probs, 1).item()
-
-        if predicted_token == word2idx["<EOS>"]:
-            break
-
-        generated_poem.append(idx2word[predicted_token])
-        input_token = torch.tensor([predicted_token]).to(device)
-
-    return "".join(generated_poem).replace("<SOS>", "").replace("<EOS>", "")
-
-import torch
-import torch.nn.functional as F
-
-def generate_poem_with_keywords(model, tokenizer, device, keywords, max_length=32, temperature=1.0):
-
-    model.eval()
-    word2idx, idx2word = tokenizer
-
-    keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
-    src = torch.tensor(keyword_indices).unsqueeze(0).to(device)  # [1, len(keywords)]
-    generated_poem = keywords.copy()
-
-    with torch.no_grad():
-        encoder_outputs, hidden, cell = model.encoder(src)
-
-    input_token = src[:, -1]  # 以最后一个关键词作为起始 Token
-
-    for _ in range(max_length - len(keywords)):  # 控制最大长度
-        with torch.no_grad():
-            output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
-            logits = output.squeeze(0) / temperature  # 采样温度
-            probs = F.softmax(logits, dim=-1)
-            predicted_token = torch.multinomial(probs, 1).item()  # 采样下一个 Token
-
-        if predicted_token == word2idx["<EOS>"]:
-            break
-
-        if idx2word[predicted_token] == "<UNK>":
-            continue  # 直接跳过这次生成
-
-        generated_poem.append(idx2word[predicted_token])
-        input_token = torch.tensor([predicted_token]).to(device)  # 更新输入
-
-    return "".join(generated_poem)
+from math import log
 
 import torch
 import torch.nn.functional as F
 import jieba
 
-def generate_poem_with_jieba_keywords(model, tokenizer, device, keyword_phrase, max_length=32, temperature=1.0, top_k=5):
-    model.eval()
-    word2idx, idx2word = tokenizer
+from SongIambicsGeneration.utils import  fix_poem_rhythm, \
+    format_poem, check_and_fix_poem_line
+from my_config import *
 
-    if isinstance(keyword_phrase, list):
-        keyword_phrase = "".join(keyword_phrase)
-    keywords = list(jieba.cut(keyword_phrase))
+def nucleus_sampling(probs, p=0.9):
+    sorted_probs, sorted_indices = torch.sort(probs, descending=True)
+    cumulative_probs = torch.cumsum(sorted_probs, dim=0)
 
-    print(f"分词结果: {keywords}")  # 例如: ["春风", "又绿", "江南", "岸"]
+    # **边界检查**
+    valid_indices = (cumulative_probs > p).nonzero(as_tuple=True)[0]
+    if valid_indices.shape[0] == 0:
+        return sorted_indices[0].item()  # **如果 `cumulative_probs` 为空，返回 Top-1**
 
-    keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
-    src = torch.tensor(keyword_indices).unsqueeze(0).to(device)  # [1, len(keywords)]
-    generated_poem = keywords.copy()
+    cutoff_idx = valid_indices[0].item()
+    sampled_index = sorted_indices[:cutoff_idx + 1]
 
+    return sampled_index[torch.randint(len(sampled_index), (1,))].item()
+
+
+def beam_search_v3(logits, beam_size=4, max_len=10, eos_token_id=2, length_penalty=0.6):
+    candidates = [([], 0.0)]  # 每个候选序列是一个元组：(序列, 对数概率)
+    for step in range(max_len):
+        new_candidates = []
+        for seq, log_prob in candidates:
+            if len(seq) > 0 and seq[-1] == eos_token_id:
+                # 如果序列已经结束，直接保留
+                new_candidates.append((seq, log_prob))
+                continue
+            # 获取当前时间步的 logits
+            current_logits = logits.squeeze(0)  # [1, vocab_size]
+            probs = F.softmax(current_logits, dim=-1)  # [1, vocab_size]
+            # 选择 top-k 候选词
+            top_probs, top_indices = torch.topk(probs, k=beam_size)  # [batch_size, beam_size]
+            for i in range(beam_size):
+                next_token = top_indices[i].item()  # 选择第 i 个候选词
+                next_log_prob = log(top_probs[i].item())  # 计算对数概率
+                # 长度归一化
+                length_penalized_log_prob = log_prob + next_log_prob / ((len(seq) + 1) ** length_penalty)
+
+                new_candidates.append((seq + [next_token], length_penalized_log_prob))
+        # 按对数概率排序，选择 top-k 候选序列
+        new_candidates.sort(key=lambda x: x[1], reverse=True)
+        candidates = new_candidates[:beam_size]
+
+    # 返回最优的候选序列
+    best_sequence = candidates[0][0]
+    return best_sequence
+
+
+def get_predicted_token(logits, beam_size, probs, top_p):
+    predicted_token = (
+        beam_search_v3(logits, beam_size=beam_size)[-1]
+        if random.random() < 0.8
+        else nucleus_sampling(probs, p=top_p)
+    )
+    return predicted_token
+
+
+def generate_poetry_next_word(model, input_token, hidden, cell, encoder_outputs,
+                              word_counts, idx2word, temperature, top_p, beam_size):
     with torch.no_grad():
-        encoder_outputs, hidden, cell = model.encoder(src)
+        output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
+        logits = output.squeeze(0) / temperature
+        probs = F.softmax(logits, dim=-1)
 
-    input_token = src[:, -1]  # 以最后一个关键词作为起点
+        for i in range(len(probs)):
+            word = idx2word[i]
+            if word in word_counts and word_counts[word] > 1:
+                probs[i] *= 0.1  # **降低已出现单词的概率**
 
-    for _ in range(max_length - len(keywords)):
-        with torch.no_grad():
-            output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
+    predicted_token = get_predicted_token(logits, beam_size, probs, top_p)
+    return predicted_token, hidden, cell, probs
 
-            logits = output.squeeze(0) / temperature
-            probs = F.softmax(logits, dim=-1)
 
-            top_k_probs, top_k_indices = torch.topk(probs, k=top_k)
-            sampled_index = torch.multinomial(top_k_probs, 1).item()
-            predicted_token = top_k_indices[sampled_index].item()
-
-        if predicted_token == word2idx["<EOS>"]:
-            if len(generated_poem) < max_length // 2:
-                predicted_token = random.choice(top_k_indices.tolist())
-            else:
-                break
-        # **避免生成 `<UNK>`**
-        if idx2word[predicted_token] in SPECIAL_TKOKENS:
-            continue  # 直接跳过 `<UNK>`
-
-        generated_poem.append(idx2word[predicted_token])
-        input_token = torch.tensor([predicted_token]).to(device)
-
-    return "".join(generated_poem)
-
-def generate_poem_with_jieba_keywords_v2(model, tokenizer, device, keyword_phrase, max_length=32, temperature=0.8, top_p=0.9):
-    model.eval()
+def generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
+                                 sentence_length,total_line,temperature,top_p,beam_size):
     word2idx, idx2word = tokenizer
-
-    if isinstance(keyword_phrase, list):
-        keyword_phrase = "".join(keyword_phrase)
-
     keywords = list(jieba.cut(keyword_phrase))
-    print(f"🔹 分词结果: {keywords}")
-
-    keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
-    src = torch.tensor(keyword_indices).unsqueeze(0).to(device)
-    generated_poem = keywords.copy()
-
-    with torch.no_grad():
-        encoder_outputs, hidden, cell = model.encoder(src)
-
-    input_token = src[:, -1]
-
-    word_counts = {}  # **用于惩罚重复单词**
-
-    for _ in range(max_length - len(keywords)):
-        with torch.no_grad():
-            output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
-
-            logits = output.squeeze(0) / temperature
-            probs = F.softmax(logits, dim=-1)
-
-            for i in range(len(probs)):
-                word = idx2word[i]
-                if word in word_counts:
-                    probs[i] *= 0.5  # **降低已出现词的概率**
-
-            predicted_token = nucleus_sampling(probs, p=top_p)
-
-        if predicted_token == word2idx["<EOS>"]:
-            if len(generated_poem) < max_length // 2:
-                predicted_token = random.choice(torch.topk(probs, k=10).indices.tolist())
-            else:
-                break
-
-        if idx2word[predicted_token] in SPECIAL_TKOKENS:
-            continue
-
-        word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
-
-        generated_poem.append(idx2word[predicted_token])
-        input_token = torch.tensor([predicted_token]).to(device)
-
-    return "".join(generated_poem)
-
-def generate_poem_with_keywords_v3(model, tokenizer, device, keyword_phrase, max_length=32, temperature=0.8, top_p=0.9, beam_size=3):
-    model.eval()
-    word2idx, idx2word = tokenizer
-
-    if isinstance(keyword_phrase, list):
-        keyword_phrase = "".join(keyword_phrase)
-    keywords = list(jieba.cut(keyword_phrase))
-    print(f"🔹 分词结果: {keywords}")
-
     keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
     src = torch.tensor(keyword_indices).unsqueeze(0).to(device)
     generated_poem = keywords.copy()
-
-    with torch.no_grad():
-        encoder_outputs, hidden, cell = model.encoder(src)
-
-    input_token = src[:, -1]
     word_counts = {}  # 统计已出现单词，防止重复
 
-    #for _ in range(max_length - len(keywords)):
-    while len(generated_poem) + 2 <= max_length:
-        with torch.no_grad():
-            output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
-            logits = output.squeeze(0) / temperature
-            probs = F.softmax(logits, dim=-1)
+    with torch.no_grad():
+        encoder_outputs, hidden, cell = model.encoder(src)
 
-            for i in range(len(probs)):
-                word = idx2word[i]
-                if word in word_counts:
-                    probs[i] *= 0.2  # **降低已出现单词的概率**
+    input_token = src[:, -1]
+    for current_row in range(total_line):
+        current_sentence = []
+        for i in range(sentence_length):
+            predicted_token, hidden, cell, probs = generate_poetry_next_word(
+                model, input_token, hidden, cell, encoder_outputs,
+                word_counts, idx2word, temperature, top_p, beam_size
+            )
 
-            predicted_token = beam_search_v3(logits.unsqueeze(0), beam_size=beam_size)[-1]
+            while idx2word[predicted_token] in SPECIAL_TKOKENS:
+                predicted_token = random.choice(torch.topk(probs, k=15).indices.tolist())
 
-        while predicted_token == word2idx["<EOS>"]:
-            if len(generated_poem) < max_length:
-                predicted_token = random.choice(torch.topk(probs, k=10).indices.tolist())
-            else:
-                break
+            last_word_idx = word2idx.get(current_sentence[-1]) if current_sentence else None
+            while last_word_idx == predicted_token:
+                predicted_token = random.choice(
+                    torch.topk(probs, k=15).indices.tolist()) if random.random() > 0.25 else last_word_idx
 
-        if idx2word[predicted_token] == "<UNK>":
-            continue
+            word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
+            current_sentence.append(idx2word[predicted_token])
+            input_token = torch.tensor([predicted_token]).to(device)
 
-        word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
+        generated_poem.append("".join(current_sentence))
 
-        generated_poem.append(idx2word[predicted_token])
-        input_token = torch.tensor([predicted_token]).to(device)
+    return generated_poem
+
+
+def generate_poetry_v1(model, tokenizer, device, keyword_phrase,sentence_length = 7,
+                       total_line = 4,temperature = 0.8,top_p = 0.9,beam_size = 4):
+    model.eval()
+    if isinstance(keyword_phrase, list):
+        keyword_phrase = "".join(keyword_phrase)
+    poem =  generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
+                                        sentence_length,total_line,temperature,top_p,beam_size)
+    total_line = check_and_fix_poem_line(total_line)
+    return format_poem(
+        sentence_pre_line = sentence_length,
+        total_lines = total_line,
+        poem = poem if isinstance(poem, str) else "".join(poem))
+
+
+def generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
+                                 sentence_length,total_line,temperature,top_p,beam_size):
+    word2idx, idx2word = tokenizer
+    keywords = list(jieba.cut(keyword_phrase))
+
+    keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
+    src = torch.tensor(keyword_indices).unsqueeze(0).to(device)
+    generated_poem = []
+    word_counts = {}
+    use_keywords = len(keywords) >= total_line
+
+    with torch.no_grad():
+        encoder_outputs, hidden, cell = model.encoder(src)
+
+    for current_line in range(total_line):
+
+        if use_keywords:
+            keyword_index = current_line % len(keyword_indices)
+        else:
+            keyword_index = current_line if current_line < len(keyword_indices) else None
+
+        if keyword_index is not None:
+            first_word = idx2word.get(keyword_indices[keyword_index], keywords[keyword_index])
+            if first_word in SPECIAL_TKOKENS:
+                first_word = keywords[keyword_index]
+        else:
+            first_word = None
+
+        current_sentence = [first_word] if first_word else []
+
+        if first_word:
+            input_token = torch.tensor([keyword_indices[keyword_index]]).to(device)
+        else:
+            input_token = torch.tensor([word2idx["<SOS>"]]).to(device)
+
+        for i in range(len(first_word) if first_word else 0, sentence_length):
+            predicted_token, hidden, cell, probs = generate_poetry_next_word(
+                model, input_token, hidden, cell, encoder_outputs,
+                word_counts, idx2word, temperature, top_p, beam_size
+            )
+
+            while idx2word[predicted_token] in SPECIAL_TKOKENS:
+                predicted_token = random.choice(torch.topk(probs, k=15).indices.tolist())
+
+            last_word_idx = word2idx.get(current_sentence[-1]) if current_sentence else None
+            while last_word_idx == predicted_token:
+                predicted_token = random.choice(torch.topk(probs, k=15).indices.tolist()) if random.random() > 0.25 else last_word_idx
+
+            word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
+            current_sentence.append(idx2word[predicted_token])
+            input_token = torch.tensor([predicted_token]).to(device)
+
+        generated_poem.append("".join(current_sentence))
+
+    return "".join(generated_poem)
+
+
+def generate_poetry_v2(model, tokenizer, device, keyword_phrase,sentence_length = 7,
+                       total_line = 4,temperature = 0.8,top_p = 0.9,beam_size = 4):
+    model.eval()
+    if isinstance(keyword_phrase, list):
+        keyword_phrase = "".join(keyword_phrase)
+    total_line = check_and_fix_poem_line(total_line)
+    poem =  generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
+                                        sentence_length,total_line,temperature,top_p,beam_size)
+
+    return format_poem(
+        sentence_pre_line = sentence_length,
+        total_lines = total_line,
+        poem = poem if isinstance(poem, str) else "".join(poem))
+
+
+def generate_poetry_with_split_keywords(model, tokenizer, device, keyword_phrases,
+                                        sentence_length=7, temperature=0.8, top_p=0.9, beam_size=3):
+    model.eval()
+    word2idx, idx2word = tokenizer
+
+    if isinstance(keyword_phrases, list):
+        keyword_phrases = "".join(keyword_phrases)
+
+    keywords = [word for word in jieba.cut(keyword_phrases) if word.strip()]
+    keyword_chars = list("".join(keywords))
+    keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keyword_chars]
+    src = torch.tensor(keyword_indices).unsqueeze(0).to(device)
+
+    generated_poem = []
+    word_counts = {}  # 统计已出现单词，防止重复
+    keyword_weights = {word: 1.0 for word in keyword_chars}
+    eos_cnt = 0
+
+    with torch.no_grad():
+        encoder_outputs, hidden, cell = model.encoder(src)
+
+    for i in range(len(keyword_chars)):
+        current_sentence = [keyword_chars[i]]  # **直接以关键词作为首个单词**
+        input_token = torch.tensor([keyword_indices[i]]).to(device)
+        while len(current_sentence) < sentence_length:
+            with torch.no_grad():
+                output, hidden, cell = model.decoder(input_token, hidden, cell, encoder_outputs)
+                logits = output.squeeze(0) / temperature
+                probs = F.softmax(logits, dim=-1)
+
+                for word, idx in word2idx.items():
+                    if word in keyword_weights:
+                        probs[idx] *= keyword_weights[word]  # **关键词权重**
+
+                for word, idx in word2idx.items():
+                    if word in word_counts:
+                        probs[idx] *= 0.33  # **降低已出现单词的概率**
+
+                predicted_token = get_predicted_token(logits, beam_size, probs, top_p)
+
+                while idx2word[predicted_token] in SPECIAL_TKOKENS:
+                    if len(current_sentence) < sentence_length:
+                        eos_cnt += 1
+                        predicted_token = random.choice(torch.topk(probs, k=10).indices.tolist())
+                    else:
+                        break
+
+                word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
+                current_sentence.append(idx2word[predicted_token])
+                input_token = torch.tensor([predicted_token]).to(device)
+
+            generated_poem.append("".join(current_sentence))
 
     generated_poem = fix_poem_rhythm(generated_poem)
-
+    print(f"occurrences of <EOS>:{eos_cnt}")
     return "".join(generated_poem)
