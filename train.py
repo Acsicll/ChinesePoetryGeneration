@@ -1,5 +1,6 @@
 import time
-
+import torch.cuda.amp as amp
+import logging
 import gensim
 import numpy as np
 import torch
@@ -9,15 +10,18 @@ from gensim.models import Word2Vec
 from torch.backends import cudnn
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
+
 from SongIambicsGeneration.dataset import get_dataloader, load_vocab, load_sentences
+from SongIambicsGeneration.utils import generate_model_name
 from models.encoder import Encoder
 from models.decoder import Decoder
 from models.seq2seq import Seq2Seq
 from models.attention import Attention
 import random
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def train(model,iterator,optimizer,criterion,clip,device):
+def train(model, iterator, optimizer, criterion, clip, device):
     model.train()
     epoch_loss = 0
     scaler = torch.amp.GradScaler(enabled=True)
@@ -42,36 +46,31 @@ def train(model,iterator,optimizer,criterion,clip,device):
 
     return epoch_loss / len(iterator)
 
-# def get_Word2vec(word2idx, sentences, embedding_dim, device):
-#     model = Word2Vec(sentences, vector_size=embedding_dim, window=5, min_count=1, sg=0)
-#
-#     vocab_size = len(word2idx)
-#     embedding_matrix = np.zeros((vocab_size, embedding_dim))
-#     for word, idx in word2idx.items():
-#         if word in model.wv:
-#             embedding_matrix[idx] = model.wv[word]
-#         else:
-#             embedding_matrix[idx] = np.random.normal(scale=0.6, size=(embedding_dim,))  # 未知词随机初始化
-#
-#     embedding_matrix[word2idx["<UNK>"]] = np.mean(embedding_matrix, axis=0)
-#     return nn.Embedding.from_pretrained(torch.tensor(embedding_matrix, dtype=torch.float32)).to(device)
 
-def to_train(model,train_loader,optimizer,criterion,clip,device):
+def to_train(epoch, model, train_loader, optimizer, criterion, clip, device):
     cudnn.benchmark = True
     cudnn.enabled = True
-
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
-    #for epoch in range(20):
-    epoch = 20
-    while epoch < 30:
+    if isinstance(epoch, list) and len(epoch) == 2:
+        start_epoch, end_epoch = epoch
+    elif isinstance(epoch, int):
+        start_epoch, end_epoch = epoch
+    else:
+        raise ValueError("epoch must be int or list of int")
+
+    logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))}] start training...")
+    for i in range(start_epoch, end_epoch):
         start_time = time.time()
         train_loss = train(model, train_loader, optimizer, criterion, clip, device)
         scheduler.step(train_loss)
         end_time = time.time()
         epoch_mins, epoch_secs = divmod(int(end_time - start_time), 60)
-        print(f'Epoch: {epoch+1:02} | Train Loss: {train_loss:.3f} | Time: {epoch_mins}m {epoch_secs}s')
-        torch.save(model.state_dict(), f'./SavedModels/seq2seq_{epoch+1}.pt')
-        print(f"Model saved as models./SavedModels/seq2seq_{epoch+1}.pt")
-        epoch += 1
+        logging.info(f'Epoch: {start_epoch + 1:02} | Train Loss: {train_loss:.3f} | Time: {epoch_mins}m {epoch_secs}s')
+
+        model_name = generate_model_name("seq2seq","github","RNN&LSTM",model.learning_rate,
+                                         model.batch_size,i,train_loss)
+        torch.save(model.state_dict(), f'./SavedModels/{model_name}')
+        logging.info(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))}] Model saved as models./SavedModels/seq2seq_{i}.pt")
 
     print("Training complete!")

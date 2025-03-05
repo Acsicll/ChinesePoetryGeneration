@@ -1,5 +1,7 @@
 import torch
 import torch.nn as nn
+from sympy.physics.units.systems.si import dimex
+
 
 class Decoder(nn.Module):
     def __init__(self, output_dim,emb_dim, hidden_dim, num_layers, dropout, attention):
@@ -27,7 +29,7 @@ class Decoder(nn.Module):
         attention_applied = torch.bmm(attention_weights, encoder_outputs)  # [batch_size, 1, hidden_dim * 2]
         attention_applied = attention_applied.squeeze(1)  # [batch_size, hidden_dim * 2]
 
-        rnn_input = torch.cat((embedded.squeeze(0), attention_applied), dim=1)  # [batch_size, hidden_dim * 2 + emb_dim]
+        rnn_input = torch.cat((embedded.squeeze(0),attention_applied), dim=1)  # [batch_size, hidden_dim * 2 + emb_dim]
         rnn_input = rnn_input.unsqueeze(0)  # [1, batch_size, hidden_dim * 2 + emb_dim]
         hidden = hidden.contiguous()
         cell = cell.contiguous()

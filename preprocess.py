@@ -6,6 +6,8 @@ import jieba
 import torch
 from tqdm import tqdm
 from torch.utils.data import Dataset,DataLoader
+
+from SongIambicsGeneration.utils import tranditional_chinese_to_simpilfied_chinese
 from my_config import *
 
 
@@ -78,7 +80,8 @@ def text_to_indices(text, word2idx):
 def preprocess_data():
     print("Start preprocessing data...")
     process_CCPC_data(CCPC_DATA_PATH, DATA_PATH)
-    texts = load_data(DATA_PATH)
+    tranditional_chinese_to_simpilfied_chinese(DATA_PATH, T2S_DATA_PATH)
+    texts = load_data(T2S_DATA_PATH)
     texts = [clean_text(text) for text in texts]
     tokenized_texts = [tokenize(text) for text in texts if text != ""]
 
@@ -92,6 +95,22 @@ def preprocess_data():
 
     torch.save(indexed_texts, PROCESSED_PATH)
     print("Data preprocessing complete.")
+
+
+# def get_Word2vec(word2idx, sentences, embedding_dim, device):
+#     model = Word2Vec(sentences, vector_size=embedding_dim, window=5, min_count=1, sg=0)
+#
+#     vocab_size = len(word2idx)
+#     embedding_matrix = np.zeros((vocab_size, embedding_dim))
+#     for word, idx in word2idx.items():
+#         if word in model.wv:
+#             embedding_matrix[idx] = model.wv[word]
+#         else:
+#             embedding_matrix[idx] = np.random.normal(scale=0.6, size=(embedding_dim,))  # 未知词随机初始化
+#
+#     embedding_matrix[word2idx["<UNK>"]] = np.mean(embedding_matrix, axis=0)
+#     return nn.Embedding.from_pretrained(torch.tensor(embedding_matrix, dtype=torch.float32)).to(device)
+
 
 if __name__ == "__main__":
     preprocess_data()
