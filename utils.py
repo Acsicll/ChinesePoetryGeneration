@@ -14,9 +14,9 @@ from sqlalchemy.sql.operators import truediv
 from my_config import *
 
 
-def generate_model_name(task, dataset, model_arch, lr, batch_size, epoch, val_loss):
+def generate_model_name(task, dataset, model_type, lr, batch_size, epoch, val_loss):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    return f"{task}_{dataset}_{model_arch}_lr{lr}_bs{batch_size}_ep{epoch}_vl{val_loss:.3f}_{timestamp}.pt"
+    return f"{task}_{dataset}_{model_type}_lr{lr}_bs{batch_size}_ep{epoch}_vl{val_loss:.3f}_{timestamp}.pt"
 
 
 def check_vocab():

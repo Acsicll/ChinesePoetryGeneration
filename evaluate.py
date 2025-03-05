@@ -1,12 +1,10 @@
 import torch
-import json
 from nltk.translate.bleu_score import sentence_bleu
 from dataset import load_vocab
-from models.encoder import Encoder
-from models.decoder import Decoder
-from models.seq2seq import Seq2Seq
-from models.attention import Attention
-from my_config import *
+from SongIambicsGeneration.models.LSTM.encoder import Encoder
+from SongIambicsGeneration.models.LSTM.decoder import Decoder
+from SongIambicsGeneration.models.LSTM.seq2seq import Seq2Seq
+from SongIambicsGeneration.models.attention import Attention
 
 # 1️⃣ 加载词表
 word2idx, idx2word = load_vocab()

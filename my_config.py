@@ -35,13 +35,16 @@ POETRY_THEMES = {
 
 
 class HyperParams:
-    input_dim = 5000
-    output_dim = 5000
-    enc_emb_dim = 256
-    dec_emb_dim = 256
-    hidden_dim = 1024
-    num_layers = 2
-    enc_dropout = 0.5
-    dec_dropout = 0.5
-    batch_size= 64
-    clip = 1
+    def __init__(self):
+        self.model_type : str
+        self.input_dim = 5000
+        self.output_dim = 5000
+        self.enc_emb_dim = 256
+        self.dec_emb_dim = 256
+        self.hidden_dim = 1024
+        self.num_layers = 2
+        self.enc_dropout = 0.5
+        self.dec_dropout = 0.5
+        self.batch_size= 64
+        self.clip = 1
+        self.learning_rate = 5e-4

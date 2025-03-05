@@ -1,23 +1,10 @@
 import time
-import torch.cuda.amp as amp
 import logging
-import gensim
-import numpy as np
 import torch
-import torch.optim as optim
-import torch.nn as nn
-from gensim.models import Word2Vec
 from torch.backends import cudnn
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-
-from SongIambicsGeneration.dataset import get_dataloader, load_vocab, load_sentences
 from SongIambicsGeneration.utils import generate_model_name
-from models.encoder import Encoder
-from models.decoder import Decoder
-from models.seq2seq import Seq2Seq
-from models.attention import Attention
-import random
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -47,7 +34,7 @@ def train(model, iterator, optimizer, criterion, clip, device):
     return epoch_loss / len(iterator)
 
 
-def to_train(epoch, model, train_loader, optimizer, criterion, clip, device):
+def to_train(model_type,epoch, model, train_loader,learning_rate, batch_size, optimizer, criterion, clip, device):
     cudnn.benchmark = True
     cudnn.enabled = True
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
@@ -67,8 +54,8 @@ def to_train(epoch, model, train_loader, optimizer, criterion, clip, device):
         epoch_mins, epoch_secs = divmod(int(end_time - start_time), 60)
         logging.info(f'Epoch: {start_epoch + 1:02} | Train Loss: {train_loss:.3f} | Time: {epoch_mins}m {epoch_secs}s')
 
-        model_name = generate_model_name("seq2seq","github","RNN&LSTM",model.learning_rate,
-                                         model.batch_size,i,train_loss)
+        model_name = generate_model_name("seq2seq","github",model_type,learning_rate,
+                                         batch_size,i,train_loss)
         torch.save(model.state_dict(), f'./SavedModels/{model_name}')
         logging.info(
             f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))}] Model saved as models./SavedModels/seq2seq_{i}.pt")

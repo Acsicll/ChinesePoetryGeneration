@@ -5,9 +5,10 @@ import torch
 import torch.nn.functional as F
 import jieba
 
-from SongIambicsGeneration.utils import  fix_poem_rhythm, \
+from SongIambicsGeneration.utils import fix_poem_rhythm, \
     format_poem, check_and_fix_poem_line
 from my_config import *
+
 
 def nucleus_sampling(probs, p=0.9):
     sorted_probs, sorted_indices = torch.sort(probs, descending=True)
@@ -80,7 +81,7 @@ def generate_poetry_next_word(model, input_token, hidden, cell, encoder_outputs,
 
 
 def generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
-                                 sentence_length,total_line,temperature,top_p,beam_size):
+                                 sentence_length, total_line, temperature, top_p, beam_size):
     word2idx, idx2word = tokenizer
     keywords = list(jieba.cut(keyword_phrase))
     keyword_indices = [word2idx.get(word, word2idx["<UNK>"]) for word in keywords]
@@ -100,15 +101,15 @@ def generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
                 word_counts, idx2word, temperature, top_p, beam_size
             )
 
-            filtered_topk  = [
+            filtered_topk = [
                 idx for idx in torch.topk(probs, k=15).indices.tolist()
                 if idx2word[idx] not in SPECIAL_TKOKENS
             ]
-            if not filtered_topk :
-                filtered_topk  = [word2idx.get(UNK_TOKEN,0)]
+            if not filtered_topk:
+                filtered_topk = [word2idx.get(UNK_TOKEN, 0)]
 
             while idx2word[predicted_token] in SPECIAL_TKOKENS:
-                predicted_token = random.choice(filtered_topk )
+                predicted_token = random.choice(filtered_topk)
 
             last_word_idx = word2idx.get(current_sentence[-1]) if current_sentence else None
             while last_word_idx == predicted_token:
@@ -124,22 +125,22 @@ def generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
     return generated_poem
 
 
-def generate_poetry_v1(model, tokenizer, device, keyword_phrase,sentence_length = 7,
-                       total_line = 4,temperature = 0.8,top_p = 0.9,beam_size = 4):
+def generate_poetry_v1(model, tokenizer, device, keyword_phrase, sentence_length=7,
+                       total_line=4, temperature=0.8, top_p=0.9, beam_size=4):
     model.eval()
     if isinstance(keyword_phrase, list):
         keyword_phrase = "".join(keyword_phrase)
-    poem =  generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
-                                        sentence_length,total_line,temperature,top_p,beam_size)
+    poem = generate_poetry_line_by_line(model, tokenizer, device, keyword_phrase,
+                                        sentence_length, total_line, temperature, top_p, beam_size)
     total_line = check_and_fix_poem_line(total_line)
     return format_poem(
-        sentence_pre_line = sentence_length,
-        total_lines = total_line,
-        poem = poem if isinstance(poem, str) else "".join(poem))
+        sentence_pre_line=sentence_length,
+        total_lines=total_line,
+        poem=poem if isinstance(poem, str) else "".join(poem))
 
 
 def generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
-                                 sentence_length,total_line,temperature,top_p,beam_size):
+                                    sentence_length, total_line, temperature, top_p, beam_size):
     word2idx, idx2word = tokenizer
     keywords = list(jieba.cut(keyword_phrase))
 
@@ -179,19 +180,20 @@ def generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
                 word_counts, idx2word, temperature, top_p, beam_size
             )
 
-            filtered_topk  = [
+            filtered_topk = [
                 idx for idx in torch.topk(probs, k=15).indices.tolist()
                 if idx2word[idx] not in SPECIAL_TKOKENS
             ]
-            if not filtered_topk :
-                filtered_topk  = [word2idx.get(UNK_TOKEN,0)]
+            if not filtered_topk:
+                filtered_topk = [word2idx.get(UNK_TOKEN, 0)]
 
             while idx2word[predicted_token] in SPECIAL_TKOKENS:
-                predicted_token = random.choice(filtered_topk )
+                predicted_token = random.choice(filtered_topk)
 
             last_word_idx = word2idx.get(current_sentence[-1]) if current_sentence else None
             while last_word_idx == predicted_token:
-                predicted_token = random.choice(torch.topk(probs, k=15).indices.tolist()) if random.random() > 0.25 else last_word_idx
+                predicted_token = random.choice(
+                    torch.topk(probs, k=15).indices.tolist()) if random.random() > 0.25 else last_word_idx
 
             word_counts[idx2word[predicted_token]] = word_counts.get(idx2word[predicted_token], 0) + 1
 
@@ -203,29 +205,29 @@ def generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
     return "".join(generated_poem)
 
 
-def generate_poetry_v2(model, tokenizer, device, keyword_phrase,sentence_length = 7,
-                       total_line = 4,temperature = 0.8,top_p = 0.9,beam_size = 4):
+def generate_poetry_v2(model, tokenizer, device, keyword_phrase, sentence_length=7,
+                       total_line=4, temperature=0.8, top_p=0.9, beam_size=4):
     model.eval()
     if isinstance(keyword_phrase, list):
         keyword_phrase = "".join(keyword_phrase)
     total_line = check_and_fix_poem_line(total_line)
-    poem =  generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
-                                        sentence_length,total_line,temperature,top_p,beam_size)
+    poem = generate_poetry_line_by_line_v2(model, tokenizer, device, keyword_phrase,
+                                           sentence_length, total_line, temperature, top_p, beam_size)
 
     return format_poem(
-        sentence_pre_line = sentence_length,
-        total_lines = total_line,
-        poem = poem if isinstance(poem, str) else "".join(poem))
+        sentence_pre_line=sentence_length,
+        total_lines=total_line,
+        poem=poem if isinstance(poem, str) else "".join(poem))
 
 
-def to_generate(epoch_range,model, tokenizer, device, keywords, sentence_length=7,beam_size=4):
-    for i in range (epoch_range[0],epoch_range[1]):
-        model.load_state_dict(torch.load(f'./SavedModels/seq2seq_{i+1}.pt', map_location=device))
+def to_generate(model_type, epoch_range, model, tokenizer, device, keywords, sentence_length=7, beam_size=4):
+    for i in range(epoch_range[0], epoch_range[1]):
+        model.load_state_dict(torch.load(f'./SavedModels/seq2seq_{i + 1}.pt', map_location=device))
         model.to(device)
-        poem = generate_poetry_v2(model, tokenizer, device, "".join(keywords),total_line=5,beam_size=3,temperature=0.7)
-        #poem =  generate_poetry_with_split_keywords(model, (word_2_idx, idx_2_word), device, keywords,temperature=1.2)
+        poem = generate_poetry_v2(model, tokenizer, device, "".join(keywords), total_line=5, beam_size=3,
+                                  temperature=0.7)
+        # poem =  generate_poetry_with_split_keywords(model, (word_2_idx, idx_2_word), device, keywords,temperature=1.2)
         print(f"NO.{i} Generated poem: {poem}")
-
 
 
 def generate_poetry_with_split_keywords(model, tokenizer, device, keyword_phrases,

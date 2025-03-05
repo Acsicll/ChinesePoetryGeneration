@@ -3,7 +3,7 @@ import torch.nn as nn
 from sympy.physics.units.systems.si import dimex
 
 
-class Decoder(nn.Module):
+class Decoder_LSTM(nn.Module):
     def __init__(self, output_dim,emb_dim, hidden_dim, num_layers, dropout, attention):
         super().__init__()
         self.output_dim = output_dim
