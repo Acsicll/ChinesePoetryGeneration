@@ -4,11 +4,12 @@ from sympy.physics.units.systems.si import dimex
 
 
 class Decoder_LSTM(nn.Module):
-    def __init__(self, output_dim,emb_dim, hidden_dim, num_layers, dropout, attention):
+    def __init__(self, output_dim,emb_dim, hidden_dim, num_layers, dropout, attention,pretrain_emb):
         super().__init__()
         self.output_dim = output_dim
         self.attention = attention
-        self.embedding = nn.Embedding(output_dim, emb_dim)
+        #self.embedding = nn.Embedding(output_dim, emb_dim)
+        self.embedding = pretrain_emb
         self.num_layers = num_layers
         self.hidden_dim = hidden_dim
         self.rnn = nn.LSTM(hidden_dim * 2 + emb_dim, hidden_dim, num_layers, dropout=dropout)

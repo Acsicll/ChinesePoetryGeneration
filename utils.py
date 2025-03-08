@@ -1,9 +1,11 @@
 import json
 import os
 import random
+import re
 import time
+from glob import glob
 from math import log
-
+from pypinyin import pinyin, Style
 import jieba
 import networkx as nx
 import torch.nn.functional as F
@@ -13,17 +15,58 @@ from sqlalchemy.sql.operators import truediv
 
 from my_config import *
 
+def safe_log(x, eps=1e-9):
+    return log(max(x, eps))
+
 
 def generate_model_name(task, dataset, model_type, lr, batch_size, epoch, val_loss):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     return f"{task}_{dataset}_{model_type}_lr{lr}_bs{batch_size}_ep{epoch}_vl{val_loss:.3f}_{timestamp}.pt"
 
 
+def load_model(model, model_path, device):
+    try:
+        model.load_state_dict(torch.load(model_path, map_location=device))
+        model.to(device)
+        logging.info(f"成功加载模型: {model_path}")
+        return model
+    except Exception as e:
+        logging.error(f"加载模型失败: {model_path}, 错误: {e}")
+        return None
+
+
+def find_model_files(model_dir, epoch_range, model_type,timestamp):
+    timestamped_dir = os.path.join(model_dir, timestamp)
+
+    if not os.path.exists(timestamped_dir):
+        logging.error(f"模型目录 {timestamped_dir} 不存在")
+        return []
+
+    model_files = glob(os.path.join(timestamped_dir, "*.pt"))
+    if not model_files:
+        logging.error(f"模型目录 {model_dir} 中没有找到模型文件")
+        return []
+
+    start, end, step = epoch_range
+    ep_range = list(range(start, end, step))
+
+    pattern = re.compile(rf"seq2seq_.*_{model_type}_.*_ep(\d+)_.*_{timestamp}-?.*\.pt")
+
+    matching_model_files = [
+        filepath for filepath in model_files
+        if (match := pattern.search(os.path.basename(filepath)))
+        and int(match.group(1)) in ep_range
+    ]
+
+    logging.info(f"找到 {len(matching_model_files)} 个符合条件的模型文件")
+    return matching_model_files
+
+
 def check_vocab():
     """
     Check if the given vocabulary is valid.
     """
-    with open(VOCAB_PATH, 'r', encoding='utf-8') as f:
+    with open(SIMPLE_VOCAB_PATH, 'r', encoding='utf-8') as f:
         word2idx = json.load(f)
     idx2word = {v: k for k, v in word2idx.items()}
 
@@ -37,7 +80,40 @@ def fix_poem_rhythm(poem):
     - 确保偶数行对仗
     - 调整句尾字韵脚
     """
+
     # TODO: 这里可以基于音韵库进行优化，目前只是简单返回
+    def is_rhyme(word1, word2):
+        """
+        判断两个字是否押韵（简单实现）。
+        """
+        # 押韵规则：末尾拼音相同或相似
+        pinyin1 = get_pinyin(word1[-1])  # 获取末尾字的拼音
+        pinyin2 = get_pinyin(word2[-1])
+        return pinyin1[-1] == pinyin2[-1]  # 比较韵母
+
+    def get_pinyin(char):
+        """
+        获取汉字的拼音（简单实现）。
+        """
+
+        return pinyin(char, style=Style.NORMAL)[0][0]
+
+    # 调整每句的字数
+    fixed_poem = []
+    for sentence in poem:
+        if len(sentence) > 7:  # 如果句子过长，截断
+            sentence = sentence[:7]
+        fixed_poem.append(sentence)
+
+    # 调整押韵
+    for i in range(1, len(fixed_poem)):
+        if not is_rhyme(fixed_poem[i - 1], fixed_poem[i]):
+            # 如果不押韵，尝试替换末尾字
+            last_char = fixed_poem[i][-1]
+            for candidate in ["风", "花", "雪", "月"]:  # 替换为常见的押韵字
+                if is_rhyme(fixed_poem[i - 1], candidate):
+                    fixed_poem[i] = fixed_poem[i][:-1] + candidate
+                    break
     return poem
 
 
@@ -78,24 +154,17 @@ def tranditional_chinese_to_simpilfied_chinese(src_file_path, dst_file_path):
                 else:
                     converted_lines.append(line)
 
-            write_file.write(converter.convert(line))
+                write_file.write(converter.convert(line))
+            print("Tranditional Chinese to Simplified Chinese Done!")
     except FileNotFoundError as e:
         print(f"File error: {e}")
-        print("Tranditional Chinese to Simplified Chinese Done!")
     except UnicodeDecodeError as e:
         print(f"An error occurred : {e}")
-
-    print("Tranditional Chinese to Simplified Chinese Done!")
+    except Exception as e:
+        print(f"An error occurred : {e}")
 
 
 def extract_keywords_textrank_jieba(poems, top_k=1, window_size=3):
-    """
-    使用 jieba 进行分词，并用 TextRank 提取关键词。
-    :param poems: 诗歌列表，每首诗为一行字符串
-    :param top_k: 每首诗提取多少个关键词
-    :param window_size: 计算共现关系的窗口大小
-    :return: 关键词列表（与 poems 对应）
-    """
     keywords = []
     for poem in poems:
         words = jieba.lcut(poem)  # 使用 jieba 进行分词
@@ -146,7 +215,7 @@ def classify_poetry_by_theme(poetry: str, classified_dict: dict):
     keywords = extract_keywords_textrank_jieba([poetry], top_k=1, window_size=3)
     for keyword in keywords:
         for theme, theme_words in POETRY_THEMES.items():
-            if keyword in theme_words or any (char in theme_words for char in poetry):
+            if keyword in theme_words or any(char in theme_words for char in poetry):
                 classified_dict[theme].append([poetry])
 
 

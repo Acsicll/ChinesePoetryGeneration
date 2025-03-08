@@ -2,9 +2,10 @@ import torch
 import torch.nn as nn
 
 class Encoder_LSTM(nn.Module):
-    def __init__(self, input_dim,emb_dim, hidden_dim,num_layers,droupout):
+    def __init__(self, input_dim,emb_dim, hidden_dim,num_layers,droupout,pretrain_emb):
         super().__init__()
-        self.embedding = nn.Embedding(input_dim, emb_dim)
+        #self.embedding = nn.Embedding(input_dim, emb_dim)
+        self.embedding = pretrain_emb
         self.rnn = nn.LSTM(emb_dim, hidden_dim, num_layers, dropout=droupout,bidirectional=True)
         self.fc = nn.Linear(hidden_dim*2, hidden_dim) # bidirectional LSTM has 2*hidden_dim output
         self.dropout = nn.Dropout(droupout)

@@ -8,7 +8,7 @@ class Encoder_GRU(nn.Module):
         self.rnn = nn.GRU(emb_dim,hidden_dim,num_layers,dropout=dropout,bidirectional=True)
         self.fc = nn.Linear(hidden_dim * 2, hidden_dim)
 
-        self.self_attention = nn.MultiheadAttention(emb_dim,num_heads=2, num_head=4,dropout=dropout)
+        self.self_attention = nn.MultiheadAttention(embed_dim=hidden_dim * 2,num_heads=4,dropout=dropout)
 
         self.dropout = nn.Dropout(dropout)
         self.num_layers = num_layers

@@ -1,0 +1,301 @@
+2025-03-07 13:35:08,779 - INFO - [2025-03-07 13:35:08] start training...
+2025-03-07 13:50:19,580 - INFO - [2025-03-07 13:50:19] start training...
+2025-03-07 14:06:02,842 - INFO - [2025-03-07 14:06:02] start training...
+2025-03-07 14:16:55,397 - INFO - [2025-03-07 14:16:55] start training...
+2025-03-07 14:29:41,932 - INFO - [2025-03-07 14:29:41] start training...
+2025-03-07 14:46:34,517 - INFO - [2025-03-07 14:46:34] start training...
+2025-03-07 15:00:11,748 - INFO - Epoch: 01 | Val Loss: 2.214 |Train Loss: 2.879 | Time: 13m 37s
+2025-03-07 15:00:12,313 - INFO - [2025-03-07 15:00:12] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep0_vl2.879_20250307-150011.pt
+2025-03-07 15:11:10,518 - INFO - [2025-03-07 15:11:10] start training...
+2025-03-07 15:23:47,575 - INFO - Epoch: 01 | Val Loss: 1.091 |Train Loss: 3.084 | Time: 12m 37s
+2025-03-07 15:23:48,011 - INFO - [2025-03-07 15:23:48] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep0_vl3.084_20250307-152347.pt
+2025-03-07 15:35:44,420 - INFO - Epoch: 02 | Val Loss: 0.309 |Train Loss: 0.644 | Time: 11m 56s
+2025-03-07 15:35:44,887 - INFO - [2025-03-07 15:35:44] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep1_vl0.644_20250307-153544.pt
+2025-03-07 15:47:33,705 - INFO - Epoch: 03 | Val Loss: 0.304 |Train Loss: 0.334 | Time: 11m 48s
+2025-03-07 15:47:34,156 - INFO - [2025-03-07 15:47:34] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep2_vl0.334_20250307-154733.pt
+2025-03-07 15:59:21,869 - INFO - Epoch: 04 | Val Loss: 0.302 |Train Loss: 0.320 | Time: 11m 47s
+2025-03-07 15:59:22,304 - INFO - [2025-03-07 15:59:22] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep3_vl0.320_20250307-155921.pt
+2025-03-07 16:11:13,060 - INFO - Epoch: 05 | Val Loss: 0.305 |Train Loss: 0.329 | Time: 11m 50s
+2025-03-07 16:11:13,514 - INFO - [2025-03-07 16:11:13] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep4_vl0.329_20250307-161113.pt
+2025-03-07 16:23:03,760 - INFO - Epoch: 06 | Val Loss: 0.303 |Train Loss: 0.309 | Time: 11m 50s
+2025-03-07 16:23:04,227 - INFO - [2025-03-07 16:23:04] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep5_vl0.309_20250307-162303.pt
+2025-03-07 16:34:53,933 - INFO - Epoch: 07 | Val Loss: 0.303 |Train Loss: 0.319 | Time: 11m 49s
+2025-03-07 16:34:54,387 - INFO - [2025-03-07 16:34:54] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep6_vl0.319_20250307-163453.pt
+2025-03-07 16:46:46,264 - INFO - Epoch: 08 | Val Loss: 0.302 |Train Loss: 0.306 | Time: 11m 51s
+2025-03-07 16:46:46,697 - INFO - [2025-03-07 16:46:46] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep7_vl0.306_20250307-164646.pt
+2025-03-07 16:58:36,813 - INFO - Epoch: 09 | Val Loss: 0.304 |Train Loss: 0.306 | Time: 11m 50s
+2025-03-07 16:58:37,266 - INFO - [2025-03-07 16:58:37] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep8_vl0.306_20250307-165836.pt
+2025-03-07 17:10:36,227 - INFO - Epoch: 10 | Val Loss: 0.302 |Train Loss: 0.303 | Time: 11m 58s
+2025-03-07 17:10:36,680 - INFO - [2025-03-07 17:10:36] Model saved as ./SavedModels/seq2seq_github_lSTM_lr0.0005_bs64_ep9_vl0.303_20250307-171036.pt
+2025-03-07 17:13:04,272 - INFO - 找到 7 个符合条件的模型文件
+2025-03-07 17:13:04,584 - INFO - 成功加载模型: SavedModels\seq2seq_github_lSTM_lr0.0005_bs64_ep0_vl2.879_20250307-150011.pt
+2025-03-07 17:13:04,584 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 17:13:04,584 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 17:13:05,232 - DEBUG - Loading model cost 0.648 seconds.
+2025-03-07 17:13:05,232 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 17:24:13,222 - ERROR - 模型目录 SavedModels 中没有找到模型文件
+2025-03-07 17:24:49,699 - ERROR - 模型目录 SavedModels 中没有找到模型文件
+2025-03-07 17:28:44,341 - INFO - 找到 7 个符合条件的模型文件
+2025-03-07 17:28:44,496 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl2.879_20250307-150011.pt
+2025-03-07 17:28:44,497 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 17:28:44,497 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 17:28:45,078 - DEBUG - Loading model cost 0.581 seconds.
+2025-03-07 17:28:45,078 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 17:28:45,807 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl3.084_20250307-152347.pt
+2025-03-07 17:28:46,214 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep1_vl0.644_20250307-153544.pt
+2025-03-07 17:28:46,614 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep2_vl0.334_20250307-154733.pt
+2025-03-07 17:28:47,005 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep3_vl0.320_20250307-155921.pt
+2025-03-07 17:28:47,409 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep4_vl0.329_20250307-161113.pt
+2025-03-07 17:28:47,802 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep5_vl0.309_20250307-162303.pt
+2025-03-07 17:30:28,187 - INFO - 找到 7 个符合条件的模型文件
+2025-03-07 17:30:28,367 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl2.879_20250307-150011.pt
+2025-03-07 17:30:28,367 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 17:30:28,368 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 17:30:28,960 - DEBUG - Loading model cost 0.592 seconds.
+2025-03-07 17:30:28,960 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 17:30:29,369 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl3.084_20250307-152347.pt
+2025-03-07 17:30:29,608 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep1_vl0.644_20250307-153544.pt
+2025-03-07 17:30:29,872 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep2_vl0.334_20250307-154733.pt
+2025-03-07 17:30:30,135 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep3_vl0.320_20250307-155921.pt
+2025-03-07 17:30:30,382 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep4_vl0.329_20250307-161113.pt
+2025-03-07 17:30:30,649 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep5_vl0.309_20250307-162303.pt
+2025-03-07 17:31:12,239 - INFO - 找到 11 个符合条件的模型文件
+2025-03-07 17:31:12,413 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl2.879_20250307-150011.pt
+2025-03-07 17:31:12,414 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 17:31:12,414 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 17:31:13,013 - DEBUG - Loading model cost 0.599 seconds.
+2025-03-07 17:31:13,013 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 17:31:13,438 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl3.084_20250307-152347.pt
+2025-03-07 17:31:13,661 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep1_vl0.644_20250307-153544.pt
+2025-03-07 17:31:13,912 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep2_vl0.334_20250307-154733.pt
+2025-03-07 17:31:14,160 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep3_vl0.320_20250307-155921.pt
+2025-03-07 17:31:14,423 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep4_vl0.329_20250307-161113.pt
+2025-03-07 17:31:14,701 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep5_vl0.309_20250307-162303.pt
+2025-03-07 17:31:15,061 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep6_vl0.319_20250307-163453.pt
+2025-03-07 17:31:15,465 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep7_vl0.306_20250307-164646.pt
+2025-03-07 17:31:15,743 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep8_vl0.306_20250307-165836.pt
+2025-03-07 17:31:16,011 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep9_vl0.303_20250307-171036.pt
+2025-03-07 17:39:28,450 - INFO - [2025-03-07 17:39:28] start training...
+2025-03-07 17:40:02,641 - INFO - [2025-03-07 17:40:02] start training...
+2025-03-07 17:47:26,970 - INFO - [ Epoch: 01 | Val Loss: 1.888 |Train Loss: 3.889 | Time: 7m 24s| 2025-03-07 17:47:26] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep0_vl3.889_20250307-174726.pt ]
+2025-03-07 17:54:06,623 - INFO - [ Epoch: 02 | Val Loss: 0.328 |Train Loss: 0.715 | Time: 6m 38s| 2025-03-07 17:54:06] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep1_vl0.715_20250307-175405.pt ]
+2025-03-07 18:00:59,746 - INFO - [ Epoch: 03 | Val Loss: 0.308 |Train Loss: 0.360 | Time: 6m 52s| 2025-03-07 18:00:59] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep2_vl0.360_20250307-180059.pt ]
+2025-03-07 18:07:53,788 - INFO - [ Epoch: 04 | Val Loss: 0.305 |Train Loss: 0.328 | Time: 6m 53s| 2025-03-07 18:07:53] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep3_vl0.328_20250307-180753.pt ]
+2025-03-07 18:14:54,699 - INFO - [ Epoch: 05 | Val Loss: 1.476 |Train Loss: 0.315 | Time: 7m 0s| 2025-03-07 18:14:54] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep4_vl0.315_20250307-181454.pt ]
+2025-03-07 18:22:04,428 - INFO - [ Epoch: 06 | Val Loss: 0.312 |Train Loss: 0.326 | Time: 7m 9s| 2025-03-07 18:22:04] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep5_vl0.326_20250307-182204.pt ]
+2025-03-07 18:29:05,618 - INFO - [ Epoch: 07 | Val Loss: 0.303 |Train Loss: 0.308 | Time: 7m 1s| 2025-03-07 18:29:05] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep6_vl0.308_20250307-182905.pt ]
+2025-03-07 18:36:18,032 - INFO - [ Epoch: 08 | Val Loss: 0.303 |Train Loss: 0.304 | Time: 7m 12s| 2025-03-07 18:36:18] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep7_vl0.304_20250307-183617.pt ]
+2025-03-07 18:43:26,686 - INFO - [ Epoch: 09 | Val Loss: 0.302 |Train Loss: 0.304 | Time: 7m 8s| 2025-03-07 18:43:26] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep8_vl0.304_20250307-184326.pt ]
+2025-03-07 18:50:48,150 - INFO - [ Epoch: 10 | Val Loss: 0.307 |Train Loss: 0.303 | Time: 7m 21s| 2025-03-07 18:50:48] Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep9_vl0.303_20250307-185048.pt ]
+2025-03-07 18:57:09,687 - INFO - 找到 9 个符合条件的模型文件
+2025-03-07 18:57:09,801 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep11_vl3.889_20250307-174726.pt
+2025-03-07 18:57:09,801 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 18:57:09,802 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 18:57:10,464 - DEBUG - Loading model cost 0.662 seconds.
+2025-03-07 18:57:10,464 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 18:57:11,019 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep12_vl0.715_20250307-175405.pt
+2025-03-07 18:57:11,228 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep13_vl0.360_20250307-180059.pt
+2025-03-07 18:57:11,426 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep14_vl0.328_20250307-180753.pt
+2025-03-07 18:57:11,626 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep15_vl0.315_20250307-181454.pt
+2025-03-07 18:57:11,843 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep16_vl0.326_20250307-182204.pt
+2025-03-07 18:57:12,089 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep17_vl0.308_20250307-182905.pt
+2025-03-07 18:57:12,355 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep18_vl0.304_20250307-183617.pt
+2025-03-07 18:57:12,570 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep19_vl0.304_20250307-184326.pt
+2025-03-07 19:00:29,559 - INFO - [2025-03-07 19:00:29] start training...
+2025-03-07 19:15:22,703 - INFO - [2025-03-07 19:15:22] start training...
+2025-03-07 19:23:17,915 - INFO - [ Epoch: 22 | Val Loss: 1.685 |Train Loss: 3.929 | Time: 7m 55s| 2025-03-07 19:23:17  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep21_vl3.929_20250307-192317.pt ]
+2025-03-07 19:30:50,278 - INFO - [ Epoch: 23 | Val Loss: 0.328 |Train Loss: 0.737 | Time: 7m 32s| 2025-03-07 19:30:50  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep22_vl0.737_20250307-193050.pt ]
+2025-03-07 19:38:00,406 - INFO - [ Epoch: 24 | Val Loss: 0.309 |Train Loss: 0.361 | Time: 7m 9s| 2025-03-07 19:38:00  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep23_vl0.361_20250307-193800.pt ]
+2025-03-07 19:45:04,901 - INFO - [ Epoch: 25 | Val Loss: 1.576 |Train Loss: 0.329 | Time: 7m 4s| 2025-03-07 19:45:04  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep24_vl0.329_20250307-194504.pt ]
+2025-03-07 19:52:15,264 - INFO - [ Epoch: 26 | Val Loss: 0.304 |Train Loss: 0.315 | Time: 7m 10s| 2025-03-07 19:52:15  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep25_vl0.315_20250307-195215.pt ]
+2025-03-07 19:59:29,916 - INFO - [ Epoch: 27 | Val Loss: 0.303 |Train Loss: 0.310 | Time: 7m 14s| 2025-03-07 19:59:29  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep26_vl0.310_20250307-195929.pt ]
+2025-03-07 20:06:31,827 - INFO - [ Epoch: 28 | Val Loss: 0.396 |Train Loss: 0.309 | Time: 7m 1s| 2025-03-07 20:06:31  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep27_vl0.309_20250307-200631.pt ]
+2025-03-07 20:13:34,115 - INFO - [ Epoch: 29 | Val Loss: 0.302 |Train Loss: 0.304 | Time: 7m 2s| 2025-03-07 20:13:34  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep28_vl0.304_20250307-201333.pt ]
+2025-03-07 20:20:51,548 - INFO - [ Epoch: 30 | Val Loss: 0.302 |Train Loss: 0.304 | Time: 7m 17s| 2025-03-07 20:20:51  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0005_bs64_ep29_vl0.304_20250307-202051.pt ]
+2025-03-07 20:22:06,284 - INFO - 找到 9 个符合条件的模型文件
+2025-03-07 20:22:06,388 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep21_vl3.929_20250307-192317.pt
+2025-03-07 20:22:06,388 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 20:22:06,389 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 20:22:07,010 - DEBUG - Loading model cost 0.622 seconds.
+2025-03-07 20:22:07,010 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 20:22:07,547 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep22_vl0.737_20250307-193050.pt
+2025-03-07 20:22:07,717 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep23_vl0.361_20250307-193800.pt
+2025-03-07 20:22:07,937 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep24_vl0.329_20250307-194504.pt
+2025-03-07 20:22:08,146 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep25_vl0.315_20250307-195215.pt
+2025-03-07 20:22:08,359 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep26_vl0.310_20250307-195929.pt
+2025-03-07 20:22:08,572 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep27_vl0.309_20250307-200631.pt
+2025-03-07 20:22:08,784 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep28_vl0.304_20250307-201333.pt
+2025-03-07 20:22:08,962 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep29_vl0.304_20250307-202051.pt
+2025-03-07 23:21:53,675 - INFO - 找到 9 个符合条件的模型文件
+2025-03-07 23:21:53,803 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep21_vl3.929_20250307-192317.pt
+2025-03-07 23:21:53,803 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 23:21:53,803 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 23:21:54,491 - DEBUG - Loading model cost 0.689 seconds.
+2025-03-07 23:21:54,491 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 23:21:55,110 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep22_vl0.737_20250307-193050.pt
+2025-03-07 23:21:55,362 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep23_vl0.361_20250307-193800.pt
+2025-03-07 23:21:55,626 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep24_vl0.329_20250307-194504.pt
+2025-03-07 23:21:55,873 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep25_vl0.315_20250307-195215.pt
+2025-03-07 23:21:56,120 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep26_vl0.310_20250307-195929.pt
+2025-03-07 23:21:56,385 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep27_vl0.309_20250307-200631.pt
+2025-03-07 23:21:56,650 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep28_vl0.304_20250307-201333.pt
+2025-03-07 23:21:56,952 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep29_vl0.304_20250307-202051.pt
+2025-03-07 23:22:39,153 - INFO - 找到 9 个符合条件的模型文件
+2025-03-07 23:22:39,270 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep11_vl3.889_20250307-174726.pt
+2025-03-07 23:22:39,270 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 23:22:39,270 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 23:22:39,939 - DEBUG - Loading model cost 0.669 seconds.
+2025-03-07 23:22:39,939 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 23:22:40,380 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep12_vl0.715_20250307-175405.pt
+2025-03-07 23:22:40,606 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep13_vl0.360_20250307-180059.pt
+2025-03-07 23:22:40,871 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep14_vl0.328_20250307-180753.pt
+2025-03-07 23:22:41,112 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep15_vl0.315_20250307-181454.pt
+2025-03-07 23:22:41,371 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep16_vl0.326_20250307-182204.pt
+2025-03-07 23:22:41,642 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep17_vl0.308_20250307-182905.pt
+2025-03-07 23:22:41,917 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep18_vl0.304_20250307-183617.pt
+2025-03-07 23:22:42,175 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep19_vl0.304_20250307-184326.pt
+2025-03-07 23:23:15,034 - INFO - 找到 9 个符合条件的模型文件
+2025-03-07 23:23:15,105 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep11_vl3.889_20250307-174726.pt
+2025-03-07 23:23:15,105 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-07 23:23:15,105 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-07 23:23:15,692 - DEBUG - Loading model cost 0.587 seconds.
+2025-03-07 23:23:15,693 - DEBUG - Prefix dict has been built successfully.
+2025-03-07 23:23:16,004 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep12_vl0.715_20250307-175405.pt
+2025-03-07 23:23:16,183 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep13_vl0.360_20250307-180059.pt
+2025-03-07 23:23:16,343 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep14_vl0.328_20250307-180753.pt
+2025-03-07 23:23:16,505 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep15_vl0.315_20250307-181454.pt
+2025-03-07 23:23:16,683 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep16_vl0.326_20250307-182204.pt
+2025-03-07 23:23:16,849 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep17_vl0.308_20250307-182905.pt
+2025-03-07 23:23:17,063 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep18_vl0.304_20250307-183617.pt
+2025-03-07 23:23:17,301 - INFO - 成功加载模型: SavedModels\20250307\seq2seq_github_LSTM_lr0.0005_bs64_ep19_vl0.304_20250307-184326.pt
+2025-03-07 23:25:58,525 - INFO - [2025-03-07 23:25:58] start training...
+2025-03-07 23:28:36,784 - INFO - [2025-03-07 23:28:36] start training...
+2025-03-07 23:36:57,026 - INFO - [2025-03-07 23:36:57] start training...
+2025-03-07 23:44:44,809 - INFO - [ Epoch: 31 | Val Loss: 8.711 |Train Loss: 8.733 | Time: 7m 47s| 2025-03-07 23:44:44  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl8.733_20250307-234444.pt ]
+2025-03-07 23:51:48,227 - INFO - [ Epoch: 32 | Val Loss: 8.711 |Train Loss: 8.733 | Time: 7m 3s| 2025-03-07 23:51:48  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl8.733_20250307-235148.pt ]
+2025-03-07 23:58:52,892 - INFO - [ Epoch: 33 | Val Loss: 8.711 |Train Loss: 8.733 | Time: 7m 4s| 2025-03-07 23:58:52  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl8.733_20250307-235852.pt ]
+2025-03-08 00:08:56,245 - INFO - [2025-03-08 00:08:56] start training...
+2025-03-08 00:10:28,219 - INFO - [2025-03-08 00:10:28] start training...
+2025-03-08 00:18:06,581 - INFO - [ Epoch: 31 | Val Loss: 0.691 |Train Loss: 3.780 | Time: 7m 38s| 2025-03-08 00:18:06  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl3.780_20250308-001806.pt ]
+2025-03-08 00:25:05,727 - INFO - [ Epoch: 32 | Val Loss: 0.322 |Train Loss: 0.651 | Time: 6m 58s| 2025-03-08 00:25:05  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.651_20250308-002505.pt ]
+2025-03-08 00:28:28,970 - INFO - [2025-03-08 00:28:28] start training...
+2025-03-08 00:36:22,425 - INFO - [ Epoch: 31 | Val Loss: 0.721 |Train Loss: 2.708 | Time: 7m 53s| 2025-03-08 00:36:22  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt ]
+2025-03-08 00:43:43,328 - INFO - [ Epoch: 32 | Val Loss: 0.337 |Train Loss: 0.502 | Time: 7m 20s| 2025-03-08 00:43:43  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt ]
+2025-03-08 00:50:46,522 - INFO - [ Epoch: 33 | Val Loss: 0.314 |Train Loss: 0.351 | Time: 7m 3s| 2025-03-08 00:50:46  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt ]
+2025-03-08 00:57:54,214 - INFO - [ Epoch: 34 | Val Loss: 0.310 |Train Loss: 0.327 | Time: 7m 7s| 2025-03-08 00:57:54  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt ]
+2025-03-08 01:05:02,110 - INFO - [ Epoch: 35 | Val Loss: 0.309 |Train Loss: 0.317 | Time: 7m 7s| 2025-03-08 01:05:02  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt ]
+2025-03-08 01:12:07,642 - INFO - [ Epoch: 36 | Val Loss: 0.307 |Train Loss: 0.312 | Time: 7m 5s| 2025-03-08 01:12:07  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt ]
+2025-03-08 01:19:08,888 - INFO - [ Epoch: 37 | Val Loss: 0.306 |Train Loss: 0.309 | Time: 7m 1s| 2025-03-08 01:19:08  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt ]
+2025-03-08 01:26:20,931 - INFO - [ Epoch: 38 | Val Loss: 0.306 |Train Loss: 0.308 | Time: 7m 11s| 2025-03-08 01:26:20  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt ]
+2025-03-08 01:33:31,546 - INFO - [ Epoch: 39 | Val Loss: 0.306 |Train Loss: 0.307 | Time: 7m 10s| 2025-03-08 01:33:31  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt ]
+2025-03-08 01:40:41,205 - INFO - [ Epoch: 40 | Val Loss: 0.305 |Train Loss: 0.308 | Time: 7m 9s| 2025-03-08 01:40:41  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt ]
+2025-03-08 01:42:23,491 - INFO - 找到 0 个符合条件的模型文件
+2025-03-08 01:42:42,096 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:42:42,222 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:42:42,223 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:42:42,223 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:42:42,880 - DEBUG - Loading model cost 0.656 seconds.
+2025-03-08 01:42:42,880 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:42:43,501 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:42:43,716 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:42:43,939 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:42:44,193 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:42:44,433 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:42:44,667 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:42:44,846 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:42:45,045 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:42:45,208 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:43:43,417 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:43:43,485 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:43:43,485 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:43:43,485 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:43:44,139 - DEBUG - Loading model cost 0.654 seconds.
+2025-03-08 01:43:44,139 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:43:44,508 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:43:44,711 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:43:44,921 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:43:45,141 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:43:45,368 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:43:45,548 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:43:45,731 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:43:45,914 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:43:46,114 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:44:17,866 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:44:17,951 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:44:17,951 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:44:17,951 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:44:18,668 - DEBUG - Loading model cost 0.717 seconds.
+2025-03-08 01:44:18,668 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:44:19,002 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:44:19,162 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:44:19,363 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:44:19,603 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:44:19,812 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:44:20,001 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:44:20,179 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:44:20,402 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:44:20,581 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:44:58,698 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:44:58,767 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:44:58,767 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:44:58,767 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:44:59,416 - DEBUG - Loading model cost 0.649 seconds.
+2025-03-08 01:44:59,416 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:44:59,766 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:44:59,916 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:45:00,116 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:45:00,326 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:45:00,546 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:45:00,696 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:45:00,866 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:45:01,026 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:45:01,186 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:45:22,711 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:45:22,772 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:45:22,773 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:45:22,773 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:45:23,358 - DEBUG - Loading model cost 0.585 seconds.
+2025-03-08 01:45:23,358 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:45:23,696 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:45:23,902 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:45:24,125 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:45:24,338 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:45:24,522 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:45:24,717 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:45:24,901 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:45:25,099 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:45:25,257 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:45:56,830 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:45:56,890 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:45:56,890 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:45:56,891 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:45:57,481 - DEBUG - Loading model cost 0.591 seconds.
+2025-03-08 01:45:57,482 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:45:57,849 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:45:58,085 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:45:58,309 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:45:58,574 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:45:58,834 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:45:59,051 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:45:59,310 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:45:59,497 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:45:59,752 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 01:46:20,292 - INFO - 找到 10 个符合条件的模型文件
+2025-03-08 01:46:20,357 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep30_vl2.708_20250308-003622.pt
+2025-03-08 01:46:20,357 - DEBUG - Building prefix dict from the default dictionary ...
+2025-03-08 01:46:20,357 - DEBUG - Loading model from cache C:\Users\cjm03\AppData\Local\Temp\jieba.cache
+2025-03-08 01:46:20,971 - DEBUG - Loading model cost 0.614 seconds.
+2025-03-08 01:46:20,971 - DEBUG - Prefix dict has been built successfully.
+2025-03-08 01:46:21,295 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep31_vl0.502_20250308-004343.pt
+2025-03-08 01:46:21,427 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep32_vl0.351_20250308-005046.pt
+2025-03-08 01:46:21,598 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep33_vl0.327_20250308-005754.pt
+2025-03-08 01:46:21,741 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep34_vl0.317_20250308-010501.pt
+2025-03-08 01:46:21,918 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep35_vl0.312_20250308-011207.pt
+2025-03-08 01:46:22,069 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep36_vl0.309_20250308-011908.pt
+2025-03-08 01:46:22,220 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep37_vl0.308_20250308-012620.pt
+2025-03-08 01:46:22,365 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep38_vl0.307_20250308-013331.pt
+2025-03-08 01:46:22,502 - INFO - 成功加载模型: SavedModels\20250308\seq2seq_github_LSTM_lr0.0003_bs64_ep39_vl0.308_20250308-014041.pt
+2025-03-08 10:58:19,066 - INFO - [2025-03-08 10:58:19] start training...
+2025-03-08 11:05:58,075 - INFO - [ Epoch: 41 | Val Loss: 0.550 |Train Loss: 3.134 | Time: 7m 38s| 2025-03-08 11:05:58  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep40_vl3.134_20250308-110557.pt ]
+2025-03-08 11:10:56,057 - INFO - [2025-03-08 11:10:56] start training...
+2025-03-08 11:19:00,782 - INFO - [ Epoch: 41 | Val Loss: 1.246 |Train Loss: 3.275 | Time: 8m 4s| 2025-03-08 11:19:00  Model saved as ./SavedModels/seq2seq_github_LSTM_lr0.0003_bs64_ep40_vl3.275_20250308-111900.pt ]

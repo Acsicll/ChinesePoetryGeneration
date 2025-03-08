@@ -25,10 +25,13 @@ class Decoder_GRU(nn.Module):
         attention_applied = attention_applied.squeeze(1) # [batch_size, hidden_dim *2]
 
         rnn_input = torch.cat((embedded.squeeze(0), attention_applied), dim=1) # [batch_size, hidden_dim * 2 + emb_dim]
-        rnn_input = rnn_input.unsqeeze(0) # [1, batch_size, hidden_dim * 2 + emb_dim]
+        rnn_input = rnn_input.unsqueeze(0) # [1, batch_size, hidden_dim * 2 + emb_dim]
+
+        hidden = hidden.contiguous()
 
         output, hidden = self.rnn(rnn_input, hidden)
-        output = torch.cat((outptut.unsqueeze(0), attention_applied, embedded.squeeze(0)), dim=1)
+        output = output.squeeze(0)
+        output = torch.cat((output, attention_applied, embedded.squeeze(0)), dim=1)
         prediction = self.fc(output)
 
         return prediction, hidden
